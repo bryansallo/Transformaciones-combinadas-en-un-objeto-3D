@@ -41,11 +41,31 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Cubo
+// GEOMETRÍA
 const geometry = new THREE.BoxGeometry(1,1,1);
-const material = new THREE.MeshStandardMaterial({ color: 0xff5733 });
-const cubo = new THREE.Mesh(geometry, material);
+
+// 🎨 COLORES TIPO "LIMÓN" (variaciones verde/amarillo)
+const materiales = [
+    new THREE.MeshStandardMaterial({ color: 0x9b59b6 }), // verde limón claro
+    new THREE.MeshStandardMaterial({ color: 0xf1c40f }), // lima
+    new THREE.MeshStandardMaterial({ color: 0xe74c3c }), // amarillo verdoso
+    new THREE.MeshStandardMaterial({ color: 0x3498db }), // lima intenso
+    new THREE.MeshStandardMaterial({ color: 0x00ffcc }), // amarillo limón
+    new THREE.MeshStandardMaterial({ color: 0xc8ff00 })  // verde ácido
+];
+
+// CREAR CUBO
+const cubo = new THREE.Mesh(geometry, materiales);
 scene.add(cubo);
+// BORDES DEL CUBO
+const edges = new THREE.EdgesGeometry(geometry);
+
+// 🎯 COLOR QUE CONTRASTA (elige uno)
+const lineMaterial = new THREE.LineBasicMaterial({
+    color: 0xff00ff });
+
+const lineas = new THREE.LineSegments(edges, lineMaterial);
+cubo.add(lineas);
 
 // Luces
 const light = new THREE.PointLight(0xffffff, 1);
